@@ -1,0 +1,28 @@
+
+请随意使⽤各种类型的脚本语言实现:批量将指定⺫⽬目录下的所有⽂文件中的$HADOOP_HOME$替换成/home/ocetl/app/hadoop
+
+1、python实现
+#coding=utf-8
+
+import os
+import re 
+
+rootdir ＝ '路径'
+list = os.listdir(rootdir)
+for i in range(0,len(list)):
+	path = os.path.join(rootdir,list[i])
+	if os.path.isfile(path):
+		f = open(path)
+		for line in f:
+			line.sub(r'\$HADOOP_HOME\$','/home/ocetl/app/hadoop')
+	else:
+		print('%s is a directory' %path)
+
+2、shell实现
+#!/usr/bin/env bash 
+
+for file in rootdir
+do
+   echo -ne `basename $file`"\t" | \
+   sed -i 's?\$HADOOP_HOME\$?/home/ocetl/app/hadoop?g'
+done
